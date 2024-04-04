@@ -25,7 +25,7 @@ def main():
     container.write_stream(stream_line('Check out his video on [YouTube](https://www.youtube.com/watch?v=aVKGjzAUHz0)' 
                                        ' and his [GitHub](https://github.com/computervisioneng/image-segmentation-yolov8) repository.'))
     container.subheader("Transfering YOLOv8 :blue[Model]")
-    container.write_stream(stream_line("Firstly, we in"))
+    container.write_stream(stream_line("Firstly, we install :blue[ultralytics] a library built by "))
     pip_in = '''pip install ultralytics'''
     container.code(pip_in, language='python')
 
