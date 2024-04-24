@@ -9,7 +9,9 @@ def stream_line(sentence, sleep_time=0.02):
 
 
 def main():
-    st.page_link("pages/Documentation.py", label='')
+    st.sidebar.page_link("pages/Documentation.py", label='')
+    st.sidebar.selectbox("Choose language: ",('English', '日本語'))
+    
     st.header('Documentation of :blue[Object Segmentation AI] using :green[YOLOv8]')
     container = st.container(border=False)
     container.write_stream(stream_line('There are mainly three types of segmentation: Semantic, Instance, and Panoptic. '
