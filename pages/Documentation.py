@@ -1,11 +1,42 @@
 import streamlit as st
 import time
 from streamlit_image_comparison import image_comparison
+from sklearn.metrics import confusion_matrix
+import pandas as pd
+import plotly.graph_objects as go
+
+classNames =  ["person","bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
+              "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
+              "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella",
+              "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat",
+              "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup",
+              "fork", "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli",
+              "carrot", "hot dog", "pizza", "donut", "cake", "chair", "sofa", "pottedplant", "bed",
+              "diningtable", "toilet", "tvmonitor", "laptop", "mouse", "remote", "keyboard", "cell phone",
+              "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors",
+              "teddy bear", "hair drier", "toothbrush", "others"]    
 
 def stream_line(sentence, sleep_time=0.02):
     for word in sentence.split():
         yield word + " "
-        #time.sleep(sleep_time)
+        #time.sleep(sleep_time) 
+
+def create_plot():
+    df = pd.read_csv("logs/yolo_testing_data.csv")
+    true = list(df["y_true"])
+    pred = list(df["y_pred"])
+    cm = confusion_matrix(y_true=true,y_pred=pred)
+    fig = go.Figure(data=go.Heatmap(
+    z=cm,
+    x=classNames,
+    y=classNames,
+    colorscale='Viridis'))
+
+    fig.update_layout(title='Confusion Matrix',
+                    xaxis_title='Predicted',
+                    yaxis_title='True')
+
+    return fig
 
 def main():
     lang_opt = st.sidebar.selectbox("Choose language: ",('English', '日本語'))
@@ -56,6 +87,9 @@ def main():
             results = model.train(data='config.yaml', epochs=100, imgsz=640)''' 
             container.code(train_mod_c, language='python')
             container.write_stream(stream_line("The next step would be building an application out of this model."))
+            container.divider()
+            container.subheader("Data Analysis")
+            container.plotly_chart(create_plot())
             container.divider()
             container.subheader("Comparison of Original Image and Output of YOLO")
             img_opt = container.selectbox("Select an option:",("A Single Cat","Cat & Human"))
