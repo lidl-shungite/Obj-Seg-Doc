@@ -50,7 +50,8 @@ def main():
         '''
             container.code(ult_imp, language='python')
             container.write_stream(stream_line("After downloading a model, it's trained with modified Pascal VOC dataset by passing the :blue[config.yaml]"
-                                            " file that contains the total number of classes in the dataset along with their names and the paths to training and validation image folders."))
+                                            " file that contains the total number of classes in the dataset along with their names and the paths to training and validation image folders."
+                                            " The parameter :blue[imgsz] is given to set the size of images during training to be the same."))
             train_mod_c = '''
             #Set and adjust epoch and imgsz as to your need
             results = model.train(data='config.yaml', epochs=100, imgsz=640)''' 
@@ -88,17 +89,20 @@ def main():
             container.write_stream(stream_line('Check out the referenced source code from this [YouTube](https://youtu.be/n4_ZuntLGjg?si=7zq-8cpIoaHgSDKN) video.'))
             container.divider()
             container.subheader("Understanding :blue[U-Net]")
-            container.image('images/unet_arch.png', caption='Architecture of U-Net')
+            container.image('images/unet_arch.png', caption='Architecture of U-Net (credits to the owner)')
             container.write_stream(stream_line("U-Net is a Recurrent Neural Network architecture, which uses encoders and decoders."
                                                " In the provided picture, blocks that are named \":blue[conv]\", are the encoders and their"
-                                               "purpose is to extract crucial features. The blocks named \":blue[deconv]\" are decoders, also known as \"UpSampling Layers\""
-                                               " which are used to rebuild the desampled down images. At the start of a segmentation process, the data is passed "
-                                               "along the encoding layers, down sampling them. :red[Notice]: _Copies of the down sampled values are send to the decoded"
-                                               "blocks to skip connections, where later they will be concatted upon the_"))
+                                               "purpose is to extract crucial features, otherwise known as \"Down-Sampling\""
+                                               ". The blocks named \":blue[deconv]\" are decoders, also known as \"Up-Sampling Layers\""
+                                               " which are used to rebuild the de-sampled down images. At the start of a segmentation process, the data is passed "
+                                               "along the encoding layers, down-sampling them. :red[Notice]: _Copies of the down-sampled values are send to the decoded"
+                                               " blocks to skip connections, where later they will be concatted upon the up-sampled values._ The down-sampling process "
+                                               "escalates further shrinking the size of data; this cuts out unimportant or insignificant features and keeps the crucial parts."
+                                               " The outputs from the down-sampling layers are up-sampled to reach the original data size."))
             
             
             container.divider()
-            container.subheader("Comparison of Original Image and Output of YOLO")
+            container.subheader("Comparison of Original Image and Output of U-Net")
             img_opt = container.selectbox("Select an option:",("A Single Cat","Cat & Human"))
             if img_opt == "A Single Cat":
                 image_comparison(img1="images/catge.jpg",img2="images/catge_predict.jpg",label1="Original Image",label2="Segmented Image", make_responsive=True)
@@ -154,5 +158,6 @@ def main():
             image_comparison(img1="images/catge.jpg",img2="images/catge_predict.jpg",label1="オリジナル写真",label2="セグメンテッド写真", make_responsive=True)
         elif img_opt == "猫と人間":
             image_comparison(img1="images/catnhuman.webp",img2="images/catnhuman.png",label1="オリジナル写真",label2="セグメンテッド写真", make_responsive=True)
+
 if __name__ == '__main__':
     main()
