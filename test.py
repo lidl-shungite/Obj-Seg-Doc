@@ -1,7 +1,9 @@
 import pandas as pd
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
+import seaborn as sns
+import matplotlib.pyplot as plt
+import random
 
-df = pd.read_csv("logs/yolo_testing_data.csv")
-true = list(df["y_true"])
-pred = list(df["y_pred"])
-print(confusion_matrix(y_true=true,y_pred=pred).shape)
+df = pd.read_csv("logs/1st_logs.csv")
+new_df = df[["epoch","mean_squared_error","val_mean_squared_error"]]
+new_df.to_csv("logs/mse_log.csv", index=False)

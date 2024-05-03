@@ -3,39 +3,33 @@ import time
 from streamlit_image_comparison import image_comparison
 from sklearn.metrics import confusion_matrix
 import pandas as pd
-import plotly.graph_objects as go
+import plotly.figure_factory as ff
+import plotly.express as px
+import numpy as np
 
-classNames =  ["person","bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
-              "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
-              "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella",
-              "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat",
-              "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup",
-              "fork", "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli",
-              "carrot", "hot dog", "pizza", "donut", "cake", "chair", "sofa", "pottedplant", "bed",
-              "diningtable", "toilet", "tvmonitor", "laptop", "mouse", "remote", "keyboard", "cell phone",
-              "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors",
-              "teddy bear", "hair drier", "toothbrush", "others"]    
+classNames =  ["aeroplane","bicycle", "bird", "boat","bottle","bus","car", "cat", "chair", "cow", "diningtable", "dog", "horse",
+              "motorbike","person","pottedplant","sheep","sofa","train","tvmonitor"]    
 
 def stream_line(sentence, sleep_time=0.02):
     for word in sentence.split():
         yield word + " "
         #time.sleep(sleep_time) 
 
-def create_plot():
-    df = pd.read_csv("logs/yolo_testing_data.csv")
-    true = list(df["y_true"])
-    pred = list(df["y_pred"])
-    cm = confusion_matrix(y_true=true,y_pred=pred)
-    fig = go.Figure(data=go.Heatmap(
-    z=cm,
-    x=classNames,
-    y=classNames,
-    colorscale='Viridis'))
+def create_plot(df, mode):
+    fig = px.line(data_frame=df, x='Epoch', y=[f'Training {mode}', f'Validation {mode}'], hover_name='Epoch',
+                     labels={'Epoch': 'Epochs', 'value': f'{mode}', 'variable': 'Dataset'},
+                     color_discrete_map={f'Training {mode}': '#1f77b4', f'Validation {mode}': '#ff7f0e'})
+    fig.update_layout(xaxis=dict(showgrid=True), yaxis=dict(showgrid=True))
+    return fig
 
-    fig.update_layout(title='Confusion Matrix',
-                    xaxis_title='Predicted',
-                    yaxis_title='True')
-
+def plot_confusion_matrix():
+    df = pd.read_csv("logs\yolo_testing_data.csv")
+    cm = confusion_matrix(y_true=list(df["y_true"]), y_pred=list(df["y_pred"]))
+    colorscale = [[0.0, '#f5f5f5'], [0.5, '#1f77b4'], [1.0, '#ff7f0e']]
+    fig = ff.create_annotated_heatmap(z=cm, x=classNames, y=classNames, colorscale=colorscale)
+    fig.update_layout(title="Confusion Matrix",xaxis=dict(title='Predicted Label'), yaxis=dict(title='True Label'), title_x=0.485,
+        title_y=0.075, title_font=dict(size=16))
+    
     return fig
 
 def main():
@@ -89,8 +83,11 @@ def main():
             container.code(train_mod_c, language='python')
             container.write_stream(stream_line("The next step would be building an application out of this model."))
             container.divider()
-            container.subheader("Data Analysis")
-            container.plotly_chart(create_plot())
+            container.subheader("Testing :blue[YOLOv8] model")
+            container.write_stream(stream_line("We collected a total of 100 images for 20 classes, and tested out to see how well would YOLOv8 performs."
+                                               " The model has an overall accuracy of 52.2:blue[%]. The following is a confusion matrix to show how correct"
+                                               " is our model when it comes to particular classes."))
+            container.plotly_chart(plot_confusion_matrix())
             container.divider()
             container.subheader("Comparison of Original Image and Output of YOLO")
             img_opt = container.selectbox("Select an option:",("A Single Cat","Cat & Human"))
@@ -135,6 +132,22 @@ def main():
                                                " The outputs from the down-sampling layers are up-sampled to reach the original data size."))
             
             
+            container.divider()
+            container.subheader("Training and Validating the Model")
+            container.write_stream(stream_line("After building the model, we now commence to train and validate the model "
+                                            "using the data. The data is split into 9-part training and 1-part validation, "
+                                            "meaning 90% of data is poured into training and 10% into validation. The following"
+                                            "are the two graphs representing the learning curve; one for the accuracy and the other"
+                                            "for the loss. The learning curve shows how our model's performance changes after each " 
+                                            "epoch. Here, loss(error) and accuracy are two metrics used to measure the performance."))
+
+            tab1, tab2, tab3 = container.tabs(["Learning Curve ( :green[Accuracy] )", "Learning Curve ( :blue[Loss] )", "Learning Curve ( :red[Mean Squared Error])"])
+            with tab1:
+                tab1.plotly_chart(create_plot(pd.read_csv("logs/acc_log.csv"), 'Accuracy'), theme="streamlit", use_container_width=True)
+            with tab2:
+                tab2.plotly_chart(create_plot(pd.read_csv("logs/loss_log.csv"), 'Loss'), theme="streamlit", use_container_width=True)
+            with tab3:
+                tab3.plotly_chart(create_plot(pd.read_csv("logs/mse_log.csv"), 'MSE'), theme="streamlit", use_container_width=True)
             container.divider()
             container.subheader("Comparison of Original Image and Output of U-Net")
             img_opt = container.selectbox("Select an option:",("A Single Cat","Cat & Human"))
