@@ -22,7 +22,7 @@ def create_plot(df, mode):
     return fig
 
 def plot_confusion_matrix():
-    df = pd.read_csv("logs\yolo_testing_data.csv")
+    df = pd.read_csv("logs/yolo_testing_data.csv")
     cm = confusion_matrix(y_true=list(df["y_true"]), y_pred=list(df["y_pred"]))
     colorscale = [[0.0, '#f5f5f5'], [0.5, '#1f77b4'], [1.0, '#ff7f0e']]
     fig = ff.create_annotated_heatmap(z=cm, x=classNames, y=classNames, colorscale=colorscale)
