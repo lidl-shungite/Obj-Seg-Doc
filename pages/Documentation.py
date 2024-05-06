@@ -5,7 +5,6 @@ from sklearn.metrics import confusion_matrix
 import pandas as pd
 import plotly.figure_factory as ff
 import plotly.express as px
-import numpy as np
 
 classNames =  ["aeroplane","bicycle", "bird", "boat","bottle","bus","car", "cat", "chair", "cow", "diningtable", "dog", "horse",
               "motorbike","person","pottedplant","sheep","sofa","train","tvmonitor"]    
