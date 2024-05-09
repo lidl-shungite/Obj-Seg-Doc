@@ -5,7 +5,6 @@ from sklearn.metrics import confusion_matrix
 import pandas as pd
 import plotly.figure_factory as ff
 import plotly.express as px
-import numpy as np
 
 classNames =  ["aeroplane","bicycle", "bird", "boat","bottle","bus","car", "cat", "chair", "cow", "diningtable", "dog", "horse",
               "motorbike","person","pottedplant","sheep","sofa","train","tvmonitor"]    
@@ -19,11 +18,11 @@ def create_plot(df, mode):
     fig = px.line(data_frame=df, x='Epoch', y=[f'Training {mode}', f'Validation {mode}'], hover_name='Epoch',
                      labels={'Epoch': 'Epochs', 'value': f'{mode}', 'variable': 'Dataset'},
                      color_discrete_map={f'Training {mode}': '#1f77b4', f'Validation {mode}': '#ff7f0e'})
-    fig.update_layout(xaxis=dict(showgrid=True), yaxis=dict(showgrid=True))
+    fig.update_layout(title=f"Graph for {mode}",xaxis=dict(showgrid=True), yaxis=dict(showgrid=True), title_font=dict(size=16))
     return fig
 
 def plot_confusion_matrix():
-    df = pd.read_csv("logs\yolo_testing_data.csv")
+    df = pd.read_csv("logs/yolo_testing_data.csv")
     cm = confusion_matrix(y_true=list(df["y_true"]), y_pred=list(df["y_pred"]))
     colorscale = [[0.0, '#f5f5f5'], [0.5, '#1f77b4'], [1.0, '#ff7f0e']]
     fig = ff.create_annotated_heatmap(z=cm, x=classNames, y=classNames, colorscale=colorscale)
@@ -136,10 +135,14 @@ def main():
             container.subheader("Training and Validating the Model")
             container.write_stream(stream_line("After building the model, we now commence to train and validate the model "
                                             "using the data. The data is split into 9-part training and 1-part validation, "
-                                            "meaning 90% of data is poured into training and 10% into validation. The following"
-                                            "are the two graphs representing the learning curve; one for the accuracy and the other"
+                                            "meaning 90% of data is poured into training and 10% into validation. The following "
+                                            "are the two graphs representing the learning curve; one for the accuracy and the other "
                                             "for the loss. The learning curve shows how our model's performance changes after each " 
-                                            "epoch. Here, loss(error) and accuracy are two metrics used to measure the performance."))
+                                            "epoch. Here, loss(error), MSE(Mean Squared Error) and accuracy are three metrics used to measure the performance."
+                                            " It is remarked that the model is overfitting, since the gap between two lines gradually"
+                                            " becomes larger every epoch. This applies for every graph there is. The epoch counts stopped "
+                                            "at 41, this occured because Early Stopping was used to halt the training process, if the"
+                                            " validation loss doesn't improve for about 25 epochs. "))
 
             tab1, tab2, tab3 = container.tabs(["Learning Curve ( :green[Accuracy] )", "Learning Curve ( :blue[Loss] )", "Learning Curve ( :red[Mean Squared Error])"])
             with tab1:
