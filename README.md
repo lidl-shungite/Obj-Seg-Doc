@@ -24,4 +24,5 @@ model = YOLO('yolov8n-seg.yaml')
 model = YOLO('yolov8n-seg.pt')
 ```
 
-If you are interested in how training and testing escalated, I recommend checking this [documentation](https://obj-seg-doc-e3wipu72g6lsyt3rvkxp2g.streamlit.app/)
+If you are interested in how training and testing escalated, I recommend checking this [documentation](https://obj-seg-doc-e3wipu72g6lsyt3rvkxp2g.streamlit.app/){:target="_blank"}.
+
