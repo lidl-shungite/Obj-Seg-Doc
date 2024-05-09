@@ -13,6 +13,9 @@ The next step would be installing the prefered YOLO version. This could be simpl
 ```py
 from ultralytics import YOLO
 ```
+
+In the following code, 'yolov8n-seg.yaml' and 'yolov8n-seg.pt' are not only model version and mode, but also a path. If the file doesn't exist, the file will be downloaded and placed. 
+
 ```py
 # Create a new YOLO model from scratch
 model = YOLO('yolov8n-seg.yaml')
