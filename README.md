@@ -26,4 +26,6 @@ model = YOLO('yolov8n-seg.pt')
 
 If you are interested in how training and testing escalated, I recommend checking this [documentation](https://obj-seg-doc-e3wipu72g6lsyt3rvkxp2g.streamlit.app/).
 
+Libraries that are required in order to run the code, are listed down in "requirements.txt" file. Install these libraries or packages in the same manner as you installed ultralytics. Run ".py" file. Quick reminder that the program may vary according to the specifications of your device that you are running the program on. 
+
 
