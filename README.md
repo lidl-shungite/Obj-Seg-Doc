@@ -39,6 +39,10 @@ Libraries that are required in order to run the code, are listed down in "requir
 
 The name "U-Net" surfaced on the internet in the year 2015, its original purpose was to segment out brain tumors of an x-ray image. People quickly realized that it could be used for other purposes, namely object segmentation and other forms of segmentation. In the ".ipynb" file lies a bit modified U-Net architecture or my version of the architecture. 
 
+### Data Preprocessing for U-Net
+
+If you have checked out the dataset, by now you would know that the masks are in black and some other colors, you don't want that. When training this would make the 
+
 The reason why it's called U-Net and more detailed explanation of the architecture is entailed in this [documentation](https://obj-seg-doc-e3wipu72g6lsyt3rvkxp2g.streamlit.app/).
 
 I also have made a well-detailed documentation, check it out [here](https://obj-seg-doc-e3wipu72g6lsyt3rvkxp2g.streamlit.app/).
