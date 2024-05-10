@@ -1,6 +1,6 @@
 # Object Segmentation using YOLOv8 and U-Net
 
-This repository contains the code and dataset for segmentation using YOLOv8 and U-Net.
+This repository contains the code and dataset for segmentation using YOLOv8 and U-Net. The PASCAL dataset is taken from [kaggle](https://www.kaggle.com/datasets/gopalbhattrai/pascal-voc-2012-dataset)
 
 ## YOLOv8
 
@@ -33,7 +33,14 @@ Before you start training your model, you must first build a 'config.yaml' file 
 results = model.train(data='config.yaml', epochs=100, imgsz=640)
 ```
 
-If you are interested in how training and testing escalated, I recommend checking this [documentation](https://obj-seg-doc-e3wipu72g6lsyt3rvkxp2g.streamlit.app/).
+Libraries that are required in order to run the code, are listed down in "requirements.txt" file. Install these libraries or packages in the same manner as you installed ultralytics. After that there is a file named ".py", it is a python program built to segment objects out of background using OpenCV, please have it in mind that segmentation may not be accurate. Run ".py" file. A quick reminder that the program may vary according to the specifications of your device that you are running the program on. 
 
-Libraries that are required in order to run the code, are listed down in "requirements.txt" file. Install these libraries or packages in the same manner as you installed ultralytics. Run ".py" file. Quick reminder that the program may vary according to the specifications of your device that you are running the program on. 
+## U-Net
+
+The name "U-Net" surfaced on the internet in the year 2015, its original purpose was to segment out brain tumors of an x-ray image. People quickly realized that it could be used for other purposes, namely object segmentation and other forms of segmentation. In the ".ipynb" file lies a bit modified U-Net architecture or my version of the architecture. 
+
+The reason why it's called U-Net and more detailed explanation of the architecture is entailed in this [documentation](https://obj-seg-doc-e3wipu72g6lsyt3rvkxp2g.streamlit.app/).
+
+I also have made a well-detailed documentation, check it out [here](https://obj-seg-doc-e3wipu72g6lsyt3rvkxp2g.streamlit.app/).
+
 
