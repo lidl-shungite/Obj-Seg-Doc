@@ -41,7 +41,9 @@ The name "U-Net" surfaced on the internet in the year 2015, its original purpose
 
 ### Data Preprocessing for U-Net
 
-If you have checked out the dataset, by now you would know that the masks are in black and some other colors, you don't want that. When training this would make the 
+If you have checked out the dataset, by now you would know that the masks are in black and some other colors, you don't want that. When training this would make the training process more tedious and long, making it more complex for the model. Of course, this process is not necessary if you are trying to classify the classes of the segmented object as well, as opposed to this, I wanted only segmentation, so I had to change the masks to black and white. Computers don't unterstand colors like we do, 2<sup>8</sup>
+
+
 
 The reason why it's called U-Net and more detailed explanation of the architecture is entailed in this [documentation](https://obj-seg-doc-e3wipu72g6lsyt3rvkxp2g.streamlit.app/).
 
