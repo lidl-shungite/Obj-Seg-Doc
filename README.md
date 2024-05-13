@@ -41,7 +41,7 @@ The name "U-Net" surfaced on the internet in the year 2015, its original purpose
 
 ### Data Preprocessing for U-Net
 
-If you have checked out the dataset, by now you would know that the masks are in black and some other colors, you don't want that. When training this would make the training process more tedious and long, making it more complex for the model. Of course, this process is not necessary if you are trying to classify the classes of the segmented object as well, as opposed to this, I wanted only segmentation, so I had to change the masks to black and white. Computers don't unterstand colors like we do, it uses the RGB model which has 8-bits (2<sup>8</sup> or 256 color values (0-255)) for three color channels; in total 256<sup>3</sup> or 16,777,216 possible colors.
+If you have checked out the dataset, by now you would know that the masks are in black and some other colors, you don't want that. When training this would make the training process more tedious and long, making it more complex for the model. Of course, this process is not necessary if you are trying to classify the classes of the segmented object as well, as opposed to this, I wanted only segmentation, so I had to change the masks to black and white. Computers don't unterstand colors like we do, it uses the RGB model which has 8-bits (2<sup>8</sup> or 256 color values ranging from 0 to 255) for three color channels; in total 256<sup>3</sup> or 16,777,216 possible colors. The mask is a binary image which l
 
 
 
