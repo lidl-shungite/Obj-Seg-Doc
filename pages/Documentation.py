@@ -90,6 +90,7 @@ def main():
             image_comparison(img1="images/catge.jpg",img2="images/catge_predict.jpg",label1="Original Image",label2="Segmented Image", make_responsive=True)
         elif img_opt == "Cat & Human":
             image_comparison(img1="images/catnhuman.webp",img2="images/catnhuman.png",label1="Original Image",label2="Segmented Image", make_responsive=True)
+    
     elif doc_opt == "U-Net":
         st.header(f"Documentation for :blue[{doc_opt}]")
         container = st.container(border=False)
@@ -148,12 +149,8 @@ def main():
         with tab3:
             tab3.plotly_chart(create_plot(pd.read_csv("logs/mse_log.csv"), 'MSE'), theme="streamlit", use_container_width=True)
         container.divider()
-        container.subheader("Comparison of Original Image and Output of U-Net")
-        img_opt = container.selectbox("Select an option:",("A Single Cat","Cat & Human"))
-        if img_opt == "A Single Cat":
-            image_comparison(img1="images/catge.jpg",img2="images/catge_predict.jpg",label1="Original Image",label2="Segmented Image", make_responsive=True)
-        elif img_opt == "Cat & Human":
-            image_comparison(img1="images/catnhuman.webp",img2="images/catnhuman.png",label1="Original Image",label2="Segmented Image", make_responsive=True)
+        container.subheader("Comparison of Original Image and Output of U-Net")        
+        image_comparison(img1="images/dog-2-resize.jpg",img2="images/dog2_with_mask.jpg",label1="Original Image",label2="Segmented Image", make_responsive=True)
 if __name__ == '__main__':
     main()
 
