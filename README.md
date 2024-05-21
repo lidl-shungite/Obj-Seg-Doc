@@ -35,6 +35,15 @@ results = model.train(data='config.yaml', epochs=100, imgsz=640)
 
 Libraries that are required in order to run the code, are listed down in "requirements.txt" file. Install these libraries or packages in the same manner as you installed ultralytics. After that there is a file named ".py", it is a python program built to segment objects out of background using OpenCV, please have it in mind that segmentation may not be accurate. Run ".py" file. A quick reminder that the program may vary according to the specifications of your device that you are running the program on. 
 
+### Project Folder Structure
+
+├── ...
+    ├── test                    
+    │   ├── benchmarks          
+    │   ├── integration        
+    │   └── unit            
+    └── ...
+
 ## U-Net
 
 The name "U-Net" surfaced on the internet in the year 2015, its original purpose was to segment out brain tumors of an x-ray image. People quickly realized that it could be used for other purposes, namely object segmentation and other forms of segmentation. In the ".ipynb" file lies a bit modified U-Net architecture or my version of the architecture. 
@@ -47,6 +56,4 @@ The reason why it's called U-Net and more detailed explanation of the architectu
 
 I also have made a well-detailed documentation with test results, check it out [here](https://obj-seg-doc-e3wipu72g6lsyt3rvkxp2g.streamlit.app/).
 
-
-## U-Net
 
