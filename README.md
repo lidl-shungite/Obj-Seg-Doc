@@ -35,24 +35,14 @@ results = model.train(data='config.yaml', epochs=100, imgsz=640)
 
 Libraries that are required in order to run the code, are listed down in "requirements.txt" file. Install these libraries or packages in the same manner as you installed ultralytics. After that there is a file named ".py", it is a python program built to segment objects out of background using OpenCV, please have it in mind that segmentation may not be accurate. Run ".py" file. A quick reminder that the program may vary according to the specifications of your device that you are running the program on. 
 
-.
-+-- _config.yml
-+-- _drafts
-|   +-- begin-with-the-crazy-ideas.textile
-|   +-- on-simplicity-in-technology.markdown
-+-- _includes
-|   +-- footer.html
-|   +-- header.html
-+-- _layouts
-|   +-- default.html
-|   +-- post.html
-+-- _posts
-|   +-- 2007-10-29-why-every-programmer-should-play-nethack.textile
-|   +-- 2009-04-26-barcamp-boston-4-roundup.textile
-+-- _data
-|   +-- members.yml
-+-- _site
-+-- index.html
+### Project Folder Structure
+
+├── ...
+    ├── test                    
+    │   ├── benchmarks          
+    │   ├── integration        
+    │   └── unit            
+    └── ...
 
 ## U-Net
 
