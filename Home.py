@@ -10,7 +10,6 @@ def stream_line(sentence, sleep_time=0.02):
 
 def main():
     st.sidebar.page_link("pages/Documentation.py", label='')
-    st.sidebar.selectbox("Choose language: ",('English', '日本語'))
     
     st.header('Introduction to Object :blue[Segmentation]')
     container = st.container(border=False)
